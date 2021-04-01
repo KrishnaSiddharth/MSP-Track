@@ -87,29 +87,7 @@ pix=contour.load()
 trackcontour = Image.open(os.path.join(__location__,'Track\\TrackP.JPG'),'r')
 pixels = trackcontour.load()
 
-#i = originP[0]
-#j = originP[1]
-
-#print(i,j, pix[i,j])
-#print(i-1,j, pix[i-1,j])
-#print(i,j-1, pix[i,j-1])
-#print(i-1,j-1, pix[i-1,j-1])
-
-#while math.fsum(pix[i,j]) < 100:
-#	j = j+1
-#	print(pix[i,j], i, j, j-originP[1] )
-
-#i = originP[0]
-#j = originP[1]
-
-#while math.fsum(pix[i,j]) < 100:
-#	i = i+1
-#	print(pix[i,j], i, j, i-originP[0])
-
-#pixsize = ref/((y-originP[1]-1.17))
 pixsize = float(ref/15)
-
-#for j in range(int(contour.height-rey*((contour.height-originP[1])/cupor)),int(contour.height-rsy*((contour.height-originP[1])/cupor))):
 
 for j in range(int(contour.height-(rey/pixsize)),int(contour.height-(rsy/pixsize))):
 	pixels[originP[0]-int(rd/pixsize),j] = (0,0,0)
@@ -118,26 +96,6 @@ for j in range(int(contour.height-(rey/pixsize)),int(contour.height-(rsy/pixsize
 		trackcontour.show()
 trackcontour.save('Track\\TrackP.JPG')
 trackcontour.close()
-#print(int(contour.height-rsy*((contour.height-originP[1])/cupor)), int(contour.height-rey*((contour.height-originP[1])/cupor)), originP[0]-int((rd/sdl)*contour.width))
-
-#while math.fsum(pix[i,j]) > 100:
-#	i = i+1
-#	print(pix[i,j], i, j, (i-originP[0])/((contour.info['dpi'])[0]) )
-
-#while math.fsum(pix[i-1,j]) > 100:
-#	j = j+1
-#	print(pix[i-1,j], i-1, j, (i-1-originP[0])/((contour.info['dpi'])[0]) )
-
-#i = originP[0]
-#j = originP[1]
-
-#while math.fsum(pix[i,j]) < 100:
-#	i = i+1
-#	print(pix[i,j], i, j, (i-originP[0])/((contour.info['dpi'])[0]) )
-
-#print(int(contour.height-rsy*((contour.height-originP[1])/cupor)), int(contour.height-rey*((contour.height-originP[1])/cupor)), originP[0]-int((rd/sdl)*contour.width))
-
-#print(contour.height-int(rsy/pixsize), contour.height-int(rey/pixsize), originP[0]-int(rd/pixsize))
 
 minP = float(input("Enter the minimum value of pressure: "))
 maxP = float(input("Enter the maximum value of pressure: "))
@@ -174,11 +132,7 @@ def value(min, max, j, field):
 		#print(i, pix_legend.index(i), total)
 	print(mintotal, index, cell)
 	contour.close()
-	legend.close()
-	#if(((max-min)*(index/legend.width)) < min):
-	#	return min
-	#if(((max-min)*(index/legend.width)) > max):
-	#	return max	
+	legend.close()	
 	return (min+((max-min)*(index/legend.width)))
 	
 #print(value(minP, maxP, 98189, 'P'))
@@ -204,11 +158,6 @@ def totalweight(i,j,field):
 	legend.close()
 	return mintotal
 
-#for i in range(0,contour.width):
-#	print(i, pix[i,169], totalweight(i,169,'P'))
-
-#for i in range(0,contour.width):
-#	print(i, pix[i,185], totalweight(i,185,'P'))
 
 def Track(start, end):                             # The code within the function Track() is the Bresenham's line algorithm which helps draw a line between two pixels.
     # Setup initial conditions                     # Source/Reference from which the Bresenham's line algorithm was taken : https://gist.github.com/goldsmith/5b7d874d9b3e0dc1779424a73e0ace7a
@@ -273,8 +222,6 @@ mini = originP[0] - min(originP[0],originN[0],originT[0],originU[0],originV[0])
 minj = originP[1] - min(originP[1],originN[1],originT[1],originU[1],originV[1])
 maxi = min(contour.width-originP[0],contourN.width-originN[0],contourT.width-originT[0],contourU.width-originU[0],contourV.width-originV[0]) + originP[0]
 maxj = min(contour.height-originP[1],contourN.height-originN[1],contourT.height-originT[1],contourU.height-originU[1],contourV.height-originV[1]) + originP[1]
-#num = sdl*(math.sqrt(2)*maxN*math.pow((rp+rg)*math.pow(10,-9),2))*2  # the number of random numbers to generate for each set = (simulation domain length/ Mean free path (at max number density)) * 2
-#print("Number of random numbers for each set: ",num)
 
 trackcontour = Image.open(os.path.join(__location__,'Track\\TrackP.JPG'),'r')
 pixels = trackcontour.load()
@@ -309,7 +256,6 @@ for n in range(0,np):
 	flag = 0
 
 	while ((math.fsum(pix[i,j]) >= 100) & (count < 10000) & (flag == 0)):
-#		print("minimum i: ",mini,"minimum j: ",minj,"maximum i: ",maxi,"maximum j: ",maxj)
 		print("Tracking MSP no: ",n+1," Walks: ",count)
 		datafile.write('\nTracking MSP no: '+str(n+1)+' Walks: '+str(count)+'\n')
 #		sigma = math.sqrt((1.38064852*math.pow(10,-23))*(value(minT, maxT, ((i-originP[0]+originT[0])+1)+((j-originP[1]+originT[1])*contourT.width), 'T')/(mg)*((1/2)-(3/(4*math.pi))))
@@ -385,7 +331,6 @@ for n in range(0,np):
 		vzpc = Vmz - ((mg/(mg+mp))*vrelz)
 		print("vzpc: ",vzpc)
 		datafile.write('vzpc: '+str(vzpc)+'\n')
-		#a = (2*vrel)/(math.sqrt(math.pi)*Vgth)
 		a = (2*math.sqrt(math.pow(XVel-vxp,2)+math.pow(YVel-vyp,2)+math.pow(vzp,2)))/(math.sqrt(math.pi)*Vgth)
 		print("a: ",a)
 		datafile.write('a: '+str(a)+'\n')
@@ -404,7 +349,6 @@ for n in range(0,np):
 		ypi = math.sqrt(pow(yp+(vypc*dt),2)+pow(vzpc*dt,2))
 		print("ypi: ",ypi)
 		datafile.write('Updated X co-ordinate: '+str(xpi)+'\n'+'Updated Y co-ordinate: '+str(ypi)+'\n')
-		#if((i!=int(xp/cellsize)) & (j!=contour.height-int(yp/cellsize))):
 		for pos in Track((i,j),(int(xpi/cellsize),contour.height-int(ypi/cellsize))):
 			if ((pos[0] > maxi) | (pos[0] < mini) | (pos[1] > maxj) | (pos[1] < minj) | (pos[0] >= contour.width) | (pos[1] >= contour.height) | (math.fsum(pix[pos[0],pos[1]]) <= 100)):
 				flag = 1
@@ -423,10 +367,7 @@ for n in range(0,np):
 		datafile.write('Updated Pixel X co-ordinate: '+str(i)+'\n'+'Updated Pixel Y co-ordinate: '+str(j)+'\n')
 		if ((i > maxi) | (i < mini) | (j > maxj) | (j < minj)):
 			break
-		#if((i>=contour.width-1) | i<=1):
-		#	break
-		#if((j>=contour.height-1) | j<=1):
-		#	break
+		
 		print("RGB values at latest Pixel: ",pix[i,j])
 		datafile.write('RGB values at latest Pixel: '+str(pix[i,j])+'\n')
 		set = 0
